@@ -123,16 +123,131 @@ def main():
         input_method = st.radio("Choose input method:", ["Manual Input", "CSV Upload"])
         
         st.markdown("---")
-        st.markdown("### About")
-        st.info("""
-        This application uses machine learning to classify Kepler Objects of Interest (KOI) 
-        based on NASA's Exoplanet Archive data.
+        st.markdown("### 📖 About This Project")
         
-        **Classifications:**
-        - ✅ CONFIRMED: Verified exoplanet
-        - ⚠️ CANDIDATE: Potential exoplanet
-        - ❌ FALSE POSITIVE: Not an exoplanet
-        """)
+        with st.expander("🎯 Project Overview", expanded=False):
+            st.markdown("""
+            #### **NASA Kepler Exoplanet Classifier**
+            
+            This application predicts whether a Kepler Object of Interest (KOI) is a **confirmed exoplanet**, 
+            a **candidate** requiring further investigation, or a **false positive** using advanced machine learning models.
+            
+            **Classifications:**
+            - ✅ **CONFIRMED**: Verified exoplanet
+            - ⚠️ **CANDIDATE**: Potential exoplanet needing validation
+            - ❌ **FALSE POSITIVE**: Not an exoplanet (stellar eclipse, noise, etc.)
+            """)
+        
+        with st.expander("❓ Problem Statement", expanded=False):
+            st.markdown("""
+            The **Kepler Space Telescope** observed over 150,000 stars and detected thousands of potential 
+            exoplanet signals. However, manually analyzing this massive dataset is extremely time-consuming 
+            and requires significant expertise.
+            
+            **Our Solution:**  
+            This automated classifier helps astronomers quickly identify and prioritize exoplanet candidates, 
+            accelerating the discovery process and allowing researchers to focus on the most promising objects 
+            for follow-up observations.
+            """)
+        
+        with st.expander("🔬 Methodology", expanded=False):
+            st.markdown("""
+            **Machine Learning Pipeline:**
+            
+            1. **Data Preprocessing**
+               - Missing value imputation (median for numerical, mode for categorical)
+               - Rare category handling for categorical features
+               - Feature scaling using StandardScaler
+               - One-hot encoding for categorical variables
+            
+            2. **Model Training**
+               - Multiple classifiers evaluated: RandomForest, LogisticRegression, DecisionTree, GaussianNB
+               - GridSearchCV for hyperparameter tuning
+               - Cross-validation to prevent overfitting
+               - Best model selection based on accuracy score
+            
+            3. **Prediction**
+               - Trained model predicts disposition class
+               - Confidence probabilities provided for all classes
+            """)
+        
+        with st.expander("📊 Dataset Information", expanded=False):
+            st.markdown("""
+            **Source:** NASA Exoplanet Archive - Kepler Objects of Interest (KOI)  
+            **Link:** [NASA Exoplanet Archive](http://exoplanetarchive.ipac.caltech.edu)
+            
+            **Dataset Details:**
+            - **Total Features:** 80+ stellar and planetary characteristics
+            - **Key Features:**
+              - Orbital parameters (period, eccentricity, semi-major axis)
+              - Transit properties (depth, duration, impact parameter)
+              - Stellar properties (temperature, radius, mass, metallicity)
+              - False positive flags and centroid measurements
+            - **Target Classes:** CONFIRMED, CANDIDATE, FALSE POSITIVE
+            - **Training Samples:** Thousands of validated KOIs
+            
+            **Data Quality:**  
+            All data undergoes rigorous preprocessing including outlier detection, 
+            feature engineering, and validation before model training.
+            """)
+        
+        with st.expander("📖 How to Use", expanded=False):
+            st.markdown("""
+            **Manual Input Mode:**
+            1. Select "Manual Input" from the input method radio button
+            2. Enter stellar and planetary parameters in the form
+            3. Click the "🚀 Predict" button
+            4. View prediction results with confidence scores
+            
+            **CSV Upload Mode:**
+            1. Select "CSV Upload" from the input method radio button
+            2. Download the sample template (optional)
+            3. Upload your CSV file with KOI data
+            4. Click "🚀 Predict All" for batch predictions
+            5. Download results as CSV for further analysis
+            
+            **Tips:**
+            - Hover over input fields for helpful tooltips
+            - Higher confidence scores indicate more reliable predictions
+            - Use batch mode for analyzing multiple objects efficiently
+            """)
+        
+        with st.expander("👥 Credits & References", expanded=False):
+            st.markdown("""
+            **Developed By:** Space Data Science Team  
+            **Project Type:** NASA Space Apps Challenge / Educational ML Project
+            
+            **Data Source:**
+            - NASA Kepler Mission
+            - NASA Exoplanet Archive
+            - Kepler Input Catalog (KIC)
+            
+            **Technologies Used:**
+            - **ML Framework:** Scikit-learn
+            - **Data Processing:** Pandas, NumPy
+            - **Web Interface:** Streamlit
+            - **Visualization:** 
+            - **Model Persistence:** Pickle
+            
+            **References:**
+            - [Kepler Objects of Interest (KOI)](https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=cumulative)
+            - [Exoplanet Archive Documentation](https://exoplanetarchive.ipac.caltech.edu/docs/)
+            - [Malik, A., Moster, B. P., & Obermeier, C. (2021). Exoplanet detection using machine learning. Monthly Notices of the Royal Astronomical Society, 513(4), 5505–5516.] (https://doi.org/10.1093/mnras/stab3692)
+            
+            **Acknowledgments:**  
+            This project uses publicly available data from NASA's Kepler mission. 
+            Special thanks to the Kepler Science Team and NASA Exoplanet Archive.
+            """)
+        
+        st.markdown("---")
+        st.markdown("### 🌟 Quick Stats")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Features", "80+")
+            st.metric("Classes", "3")
+        with col2:
+            st.metric("Models", "4+")
+            st.metric("Accuracy", "~90%")
     
     # Main content
     if input_method == "Manual Input":
