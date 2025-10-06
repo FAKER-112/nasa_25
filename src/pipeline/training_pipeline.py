@@ -58,3 +58,4 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     metrics = run_training_pipeline()
     print(metrics)
+    print(metrics['accuracy'], metrics['f1_score'], metrics['roc_auc'], metrics['preprocessor_path'], metrics['model_path'])
