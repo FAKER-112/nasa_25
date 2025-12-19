@@ -1,4 +1,3 @@
-Collecting workspace informationFiltering to most relevant informationHere's a README.md file based on the workspace structure and content:
 
 # NASA Kepler Exoplanet Classifier
 
